@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
 
-  baseApi: 'http://localhost:3000/api',
-  serverAddress: 'http://localhost:3000'
-
+  // baseApi: 'http://localhost:3000/api',
+  // serverAddress: 'http://localhost:3000'
+  baseApi: 'https://limitless-garden-71922.herokuapp.com/api',
+  serverAddress: 'https://limitless-garden-71922.herokuapp.com'
 };
 
 /*

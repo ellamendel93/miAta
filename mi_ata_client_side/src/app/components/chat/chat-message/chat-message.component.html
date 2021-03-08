@@ -52,8 +52,9 @@
                     <div class="type_msg">
                         <div class="input_msg_write">
                             <input type="text" class="write_msg" placeholder="הקלד.י הודעה..." name="message"
-                                [(ngModel)]="message" (keypress)="IsTyping()" autocomplete="off" />
-                            <button class="btn-primary msg_send_btn" (click) = "myFunction()" mat-mini-fab>
+                                [(ngModel)]="message" (keypress)="IsTyping()" autocomplete="off" maxlength="500" /><br>
+                            <span>{{message ? message.length : 0}} / 500</span>
+                            <button class="btn-primary msg_send_btn" (click)="myFunction()" mat-mini-fab>
                                 <mat-icon>send</mat-icon>
                             </button>
                         </div>

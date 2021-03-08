@@ -17,11 +17,22 @@
                     <form class="form-signin" [formGroup]="guestLoginForm" novalidate (ngSubmit)="guestLogin()">
                         <div class="form-group">
                             <label for="groupList">שם תצוגה</label>
-                            <input id="user-name" type="type" class="form-control" placeholder="הקלד.י שם תצוגה"
-                                required autofocus formControlName="username" autocomplete="off">
+                            <input id="user-name" type="text" class="form-control" placeholder="הקלד.י שם תצוגה"
+                                required autofocus formControlName="username">
+                            <mat-hint style="color: rgb(160, 160, 160);" align="start">עברית, אנגלית ומספרים, בין 2 ו20 תווים</mat-hint>
+                            <br>
                             <mat-error
-                                *ngIf="guestLoginForm.controls['username'].invalid && guestLoginForm.controls['username'].touched">
-                                שם משתמש זה שדה חובה</mat-error>
+                                *ngIf="guestLoginForm.controls['username'].hasError('required') && guestLoginForm.controls['username'].touched">
+                                שם משתמש זה שדה חובה
+                            </mat-error>
+                            <mat-error
+                                *ngIf="guestLoginForm.controls['username'].hasError('minlength') && guestLoginForm.controls['username'].touched">
+                                שם משתמש חייב להיות מעל 2 תווים
+                            </mat-error>
+                            <mat-error
+                                *ngIf="guestLoginForm.controls['username'].hasError('maxlength') && guestLoginForm.controls['username'].touched">
+                                שם משתמש חייב להיות עד 20 תווים
+                            </mat-error>
                         </div>
 
                         <div class="form-group">
@@ -30,6 +41,7 @@
                             <select class="form-control" formControlName="nation" id="groupList" required>
                                 <option value="">בחר קבוצה...</option>
                                 <option *ngFor="let nation of nations" [ngValue]="nation">{{nation.name}}</option>
+                                <option value="other">אחר</option>
                             </select>
                         </div>
 
@@ -38,6 +50,7 @@
                             <select class="form-control" formControlName="religion" id="subGroupList" required>
                                 <option *ngFor="let religion of religions" value="{{religion._id}}">{{religion.name}}
                                 </option>
+                                <option value="other">אחר</option>
                             </select>
                         </div>
 

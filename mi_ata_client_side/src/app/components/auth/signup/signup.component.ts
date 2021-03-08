@@ -40,16 +40,17 @@ export class SignupComponent implements OnInit {
 
   initData() {
     this.selectService.getAllNation().subscribe((result: Nation[]) => {
+      // debugger
+      result ? result.splice(result.length-1,1) : null;
       this.nations = result;
     });
-
   }
 
 
 
   initForm() {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required]],
       nation: ['', [Validators.required]],
@@ -61,7 +62,6 @@ export class SignupComponent implements OnInit {
       this.religions = this.selectedNation.religion;
     });
   }
-
 
   signup() {
     this.showSpinner = true;

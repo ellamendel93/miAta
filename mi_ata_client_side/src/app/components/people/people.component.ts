@@ -40,10 +40,10 @@ export class PeopleComponent implements OnInit, AfterViewInit {
 
   getLogonUser() {
     this.loggedInUser = this.tokenService.GetPayload();
-
     this.usersService.GetUserById(this.loggedInUser._id).subscribe(
       user => {
         this.loggedInUser = user.result;
+        console.log("file: people.component.ts ~ line 47 ~ getLogonUser ~ this.loggedInUser", this.loggedInUser)
       },
       err => {
         if (err.error.token === null) {
@@ -62,9 +62,12 @@ export class PeopleComponent implements OnInit, AfterViewInit {
 
       this.users = data.result;
       this.users.forEach(user => {
-        user.religion = user.nation.religion.find(r => r._id == user.religion.toString());
+        user.religion = user.nation.religion.find(r => r._id == user.religion.toString());//TODO
+        user.religion ? null : user.religion = user.nation.religion[0];
       });
-      this.users = this.users.filter(user => user.religion._id !== this.loggedInUser.religion._id);
+      // debugger
+      console.log("file: people.component.ts ~ line 64 ~ this.usersService.GetAllUsers ~ this.users", this.users)
+      this.users = this.users.filter(user => user.religion._id !== this.loggedInUser.religion + '');
     });
   }
 
@@ -72,6 +75,7 @@ export class PeopleComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.socket.on('usersOnline', (data: User[]) => {
       this.onlineUsers = data;
+      console.log("file: people.component.ts ~ line 75 ~ this.socket.on ~ this.onlineUsers", this.onlineUsers)
     });
   }
 

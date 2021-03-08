@@ -47,7 +47,7 @@ export class MainHeaderComponent implements OnInit {
 
   checkIfRead(arr) {
     let checkArr = [];
-    arr.forEach(item => {
+    arr?.forEach(item => {
       const receiver = item.msgId.message[item.msgId.message.length - 1];
       if (receiver.isRead === false) {
         checkArr.push(1);

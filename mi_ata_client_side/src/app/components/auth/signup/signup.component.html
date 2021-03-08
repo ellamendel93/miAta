@@ -20,20 +20,35 @@
                             <label for="groupList">שם תצוגה</label>
                             <input id="user-name" type="text" class="form-control" placeholder="הקלד.י שם תצוגה"
                                 required autofocus formControlName="username">
+                            <mat-hint style="color: rgb(160, 160, 160);" align="start">עברית, אנגלית ומספרים, בין 2 ו20
+                                תווים</mat-hint>
+                            <br>
                             <mat-error
-                                *ngIf="signupForm.controls['username'].invalid && signupForm.controls['username'].touched">
+                                *ngIf="signupForm.controls['username'].hasError('required') && signupForm.controls['username'].touched">
                                 שם משתמש זה שדה חובה
+                            </mat-error>
+                            <mat-error
+                                *ngIf="signupForm.controls['username'].hasError('minlength') && signupForm.controls['username'].touched">
+                                שם משתמש חייב להיות מעל 2 תווים
+                            </mat-error>
+                            <mat-error
+                                *ngIf="signupForm.controls['username'].hasError('maxlength') && signupForm.controls['username'].touched">
+                                שם משתמש חייב להיות עד 20 תווים
                             </mat-error>
                         </div>
 
                         <div class="form-group">
                             <label for="groupList">כתובת דוא"ל</label>
-                            <input type="email" class="form-control" placeholder="הקלד.י כתובת דוא''ל תקנית'" required
+                            <input type="email" class="form-control" placeholder="הקלד.י כתובת דוא''ל תקנית" required
                                 formControlName="email">
-
+                            <mat-hint style="color: rgb(160, 160, 160);" align="start">לדוגמא: emailname@doamin.com</mat-hint><br>
                             <mat-error
-                                *ngIf="signupForm.controls['email'].invalid && signupForm.controls['email'].touched">
+                                *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched">
                                 כתובת דוא"ל היא שדה חובה
+                            </mat-error>
+                            <mat-error
+                                *ngIf="signupForm.controls['email'].hasError('email') && signupForm.controls['email'].touched">
+                                כתובת דוא"ל חייבת להיות כמו בדוגמא
                             </mat-error>
 
                         </div>
@@ -55,6 +70,7 @@
                             <select class="form-control" formControlName="nation" required>
                                 <option value="">בחר קבוצה...</option>
                                 <option *ngFor="let nation of nations" [ngValue]="nation">{{nation.name}}</option>
+                                <option value="other">אחר</option>
                             </select>
                         </div>
 
@@ -64,6 +80,7 @@
                             <select class="form-control" formControlName="religion" required>
                                 <option *ngFor="let religion of religions" value="{{religion._id}}">{{religion.name}}
                                 </option>
+                                <option value="other">אחר</option>
                             </select>
                         </div>
 
